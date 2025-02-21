@@ -9,8 +9,18 @@ using namespace std;
 
 int cellSize = 30;
 int cellCount = 25;
+double lastUpdateTime = 0;
 Color green = { 173,204,96,255 };
 Color darkGreen = { 43,51,24,255 };
+
+bool eventTriggered(double interval) {
+	double currentTime = GetTime();
+	if (currentTime - lastUpdateTime >= interval) {
+		lastUpdateTime = currentTime;
+		return true;
+	}
+	return false;
+}	
 
 
 int main() {
@@ -34,7 +44,12 @@ int main() {
 
 		BeginDrawing();
 
+		if (eventTriggered(0.2)) {
+			snake.Update();
+		}
 
+		snake.Move();
+		
 		//Drawing
 		ClearBackground(green); 
 		food.Draw();
