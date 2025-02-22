@@ -2,8 +2,7 @@
 #include<raylib.h>
 
 
-#include "Food.h"
-#include "Snake.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -35,8 +34,7 @@ int main() {
 	SetTargetFPS(60);
 
 	//Creating Objects
-	Food food = Food();
-	Snake snake = Snake();
+	Game game =  Game();
 
 
 	while (WindowShouldClose() == false) {
@@ -45,19 +43,16 @@ int main() {
 		BeginDrawing();
 
 		if (eventTriggered(0.2)) {
-			snake.Update();
+			game.Update();
 		}
 
-		snake.Move();
+		game.SnakeMove();
 		
 		//Drawing
 		ClearBackground(green); 
-		food.Draw();
-		snake.Draw();
+		game.Draw();
 
 		EndDrawing();
-
-
 
 	}
 
