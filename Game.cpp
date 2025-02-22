@@ -31,19 +31,15 @@ void Game::Update() {
 void Game::SnakeMove() {
 	if (IsKeyPressed(KEY_UP) && snake.direction.y != 1) {
 		snake.direction = { 0,-1 };
-		running = true;
 	}
 	if (IsKeyPressed(KEY_DOWN) && snake.direction.y != -1) {
 		snake.direction = { 0,1 };
-		running = true;
 	}
 	if (IsKeyPressed(KEY_LEFT) && snake.direction.x != 1) {
 		snake.direction = { -1,0 };
-		running = true;
 	}
 	if (IsKeyPressed(KEY_RIGHT) && snake.direction.x != -1) {
 		snake.direction = { 1,0 };
-		running = true;
 	}
 }
 
@@ -82,6 +78,30 @@ void Game::GameOver() {
 	if (score > highScore) {
 		highScore = score;
 	}
-	score = 0;
 	PlaySound(wallSound);
+}
+
+void Game::ResetPage() {
+
+	const char* text1 = "GAME OVER!!!";
+	const char* text2 = "PRESS 'R' TO START OVER";
+	
+	DrawText(text1, offset + ((cellSize * cellCount) - MeasureText(text1, 60)) / 2 , offset + ((cellSize * cellCount) - MeasureText("GAME OVER!!!", 60)) / 2, 60, darkGreen);
+	DrawText(text2, offset + ((cellSize * cellCount) - MeasureText(text2, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText("Press 'R' to start over", 30)) / 2 + 100, 30, darkGreen);
+	
+	const char* text3 = "Score: %i";
+	const char* text4 = "High Score: %i";
+
+	DrawText(TextFormat(text3, score), offset + ((cellSize * cellCount) - MeasureText(text3, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(text3, 30)) / 2 + 100, 30, darkGreen);
+	DrawText(TextFormat(text4, highScore), offset + ((cellSize * cellCount) - MeasureText(text4, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(text4, 30)) / 2 + 200, 30, darkGreen);
+
+	
+	if(IsKeyPressed(KEY_R)) {
+		score = 0;
+		running = true;
+	}
+}
+
+bool Game::GameState() {
+	return running;
 }
