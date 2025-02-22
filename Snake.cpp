@@ -33,4 +33,5 @@ void Snake :: Update() {
 void Snake::Reset() {
 	body = { Vector2{ 6,9 }, Vector2{ 5,9 }, Vector2{ 4,9 } };
 	direction = { 1,0 };
+	addSegment = false;
 }

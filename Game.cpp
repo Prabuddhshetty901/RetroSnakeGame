@@ -49,6 +49,9 @@ void Game::CheckCollisionWihtFood() {
 		snake.addSegment = true;
 		score++;
 		PlaySound(eatSound);
+		if (score == win_score) {
+			GameWon();
+		}
 	}
 }
 
@@ -72,7 +75,7 @@ void Game::CheckCollisionWithTail() {
 }
 
 void Game::GameOver() {
-	snake.Reset();
+	/*snake.Reset();*/
 	food.position = food.GenerateRandomPos(snake.body);
 	running = false;
 	if (score > highScore) {
@@ -80,23 +83,35 @@ void Game::GameOver() {
 	}
 	PlaySound(wallSound);
 }
+void Game::GameWon() {
+	food.position = food.GenerateRandomPos(snake.body);
+	running = false;
+	if (score > highScore) {
+		highScore = score;
+	}
+}
 
 void Game::ResetPage() {
 
-	const char* text1 = "GAME OVER!!!";
-	const char* text2 = "PRESS 'R' TO START OVER";
-	
-	DrawText(text1, offset + ((cellSize * cellCount) - MeasureText(text1, 60)) / 2 , offset + ((cellSize * cellCount) - MeasureText("GAME OVER!!!", 60)) / 2, 60, darkGreen);
-	DrawText(text2, offset + ((cellSize * cellCount) - MeasureText(text2, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText("Press 'R' to start over", 30)) / 2 + 100, 30, darkGreen);
-	
-	const char* text3 = "Score: %i";
-	const char* text4 = "High Score: %i";
 
-	DrawText(TextFormat(text3, score), offset + ((cellSize * cellCount) - MeasureText(text3, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(text3, 30)) / 2 + 100, 30, darkGreen);
-	DrawText(TextFormat(text4, highScore), offset + ((cellSize * cellCount) - MeasureText(text4, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(text4, 30)) / 2 + 200, 30, darkGreen);
+	if (score == win_score) {
+		DrawText(w_text, offset + ((cellSize * cellCount) - MeasureText(w_text, 60)) / 2, offset + ((cellSize * cellCount) - MeasureText(w_text, 60)) / 2, 60, darkGreen);
+		DrawText(r_text, offset + ((cellSize * cellCount) - MeasureText(r_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(r_text, 30)) / 2 + 130, 30, darkGreen);
 
+		DrawText(TextFormat(s_text, score), offset + ((cellSize * cellCount) - MeasureText(s_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(s_text, 30)) / 2 + 100, 30, darkGreen);
+		DrawText(TextFormat(h_text, highScore), offset + ((cellSize * cellCount) - MeasureText(h_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(h_text, 30)) / 2 + 200, 30, darkGreen);
+	}
+	else {
+		DrawText(l_text, offset + ((cellSize * cellCount) - MeasureText(l_text, 60)) / 2, offset + ((cellSize * cellCount) - MeasureText(l_text, 60)) / 2, 60, darkGreen);
+		DrawText(r_text, offset + ((cellSize * cellCount) - MeasureText(r_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(r_text, 30)) / 2 + 100, 30, darkGreen);
+
+
+		DrawText(TextFormat(s_text, score), offset + ((cellSize * cellCount) - MeasureText(s_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(s_text, 30)) / 2 + 100, 30, darkGreen);
+		DrawText(TextFormat(h_text, highScore), offset + ((cellSize * cellCount) - MeasureText(h_text, 30)) / 2, offset + ((cellSize * cellCount) - MeasureText(h_text, 30)) / 2 + 200, 30, darkGreen);
+	}
 	
 	if(IsKeyPressed(KEY_R)) {
+		snake.Reset();
 		score = 0;
 		running = true;
 	}
