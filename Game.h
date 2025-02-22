@@ -23,12 +23,13 @@ public:
 	int highScore = 0;
 	Sound eatSound;
 	Sound wallSound;
+	Sound winSound;
 	const char* r_text = "PRESS 'R' TO START OVER";
 	const char* w_text = "YOU WON!!!";
 	const char* l_text = "GAME OVER!!!";
 	const char* s_text = "Score: %i";
 	const char* h_text = "High Score: %i";
-	int win_score = 3;
+	int win_score = 50;
 
 public:
 	Game();

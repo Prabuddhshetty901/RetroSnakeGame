@@ -4,6 +4,7 @@ Game::Game() {
 	InitAudioDevice();
 	eatSound = LoadSound("./Sounds/eat.mp3");
 	wallSound = LoadSound("./Sounds/wall.mp3");
+	winSound = LoadSound("./Sounds/win.mp3");
 }
 
 
@@ -16,6 +17,7 @@ void Game::Draw() {
 Game::~Game() {
 	UnloadSound(eatSound);
 	UnloadSound(wallSound);
+	UnloadSound(winSound);
 	CloseAudioDevice();
 }
 
@@ -89,6 +91,7 @@ void Game::GameWon() {
 	if (score > highScore) {
 		highScore = score;
 	}
+	PlaySound(winSound);
 }
 
 void Game::ResetPage() {
