@@ -8,6 +8,7 @@ using namespace std;
 extern int cellSize;
 extern Color darkGreen;
 extern int cellCount;
+extern int offset;
 
 class Food
 {

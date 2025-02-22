@@ -1,10 +1,22 @@
 #include "Game.h"
 
+Game::Game() {
+	InitAudioDevice();
+	eatSound = LoadSound("./Sounds/eat.mp3");
+	wallSound = LoadSound("./Sounds/wall.mp3");
+}
+
 
 void Game::Draw() {
 	food.Draw();
 	snake.Draw();
 
+}
+
+Game::~Game() {
+	UnloadSound(eatSound);
+	UnloadSound(wallSound);
+	CloseAudioDevice();
 }
 
 void Game::Update() {
@@ -39,6 +51,8 @@ void Game::CheckCollisionWihtFood() {
 	if (Vector2Equals(snake.body[0], food.position)) {
 		food.position = food.GenerateRandomPos(snake.body);
 		snake.addSegment = true;
+		score++;
+		PlaySound(eatSound);
 	}
 }
 
@@ -65,4 +79,9 @@ void Game::GameOver() {
 	snake.Reset();
 	food.position = food.GenerateRandomPos(snake.body);
 	running = false;
+	if (score > highScore) {
+		highScore = score;
+	}
+	score = 0;
+	PlaySound(wallSound);
 }

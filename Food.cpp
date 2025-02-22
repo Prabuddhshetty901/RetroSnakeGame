@@ -15,7 +15,7 @@ Food::~Food() {
 }
 
 void Food::Draw() {
-	DrawTexture(texture, position.x * cellSize, position.y * cellSize,WHITE);
+	DrawTexture(texture, offset + position.x * cellSize, offset + position.y * cellSize,WHITE);
 }
 
 Vector2 Food::GenerateRandomPos(deque<Vector2> snakeBody) {

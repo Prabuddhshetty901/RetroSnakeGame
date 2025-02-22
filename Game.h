@@ -13,8 +13,14 @@ public:
 	Snake snake = Snake();
 	Food food = Food(snake.body);
 	bool running = true;
+	int score = 0;
+	int highScore = 0;
+	Sound eatSound;
+	Sound wallSound;
 
 public:
+	Game();
+	~Game();
 	void Draw();
 	void Update();
 	void SnakeMove();

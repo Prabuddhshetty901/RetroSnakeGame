@@ -7,7 +7,7 @@
 extern int cellSize;
 extern Color darkGreen;
 extern int cellCount;
-
+extern int offset;
 
 using namespace std;
 
